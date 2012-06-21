@@ -90,8 +90,8 @@ inoremap <buffer>  { {<CR>}<C-O>O
 inoremap <buffer> [ []<LEFT>
 
 " Standard mapping after PEAR coding standard
-inoremap <buffer> ( (  )<LEFT><LEFT>
-" inoremap <buffer> ( ()<LEFT>
+" inoremap <buffer> ( (  )<LEFT><LEFT>
+inoremap <buffer> ( ()<LEFT>
 
 " Maybe this way in other coding standards
 " inoremap ( ( )<LEFT><LEFT> 
@@ -100,6 +100,7 @@ inoremap <buffer> " ""<LEFT>
 inoremap <buffer> ' ''<LEFT>
 
 " }}} Automatic close char mapping
+
 
 " {{{ Wrap visual selections with chars
 
@@ -112,15 +113,20 @@ inoremap <buffer> ' ''<LEFT>
 
 " }}} Wrap visual selections with chars
 
+
 " {{{ Dictionary completion
 
 " The completion dictionary is provided by Rasmus:
 " http://lerdorf.com/funclist.txt
-setlocal dictionary-=/home/dotxp/funclist.txt dictionary+=/home/dotxp/funclist.txt
+setlocal dictionary-=~/.vim/funclist.txt dictionary+=~/.vim/funclist.txt
 " Use the dictionary completion
 setlocal complete-=k complete+=k
 
+
+
+
 " }}} Dictionary completion
+
 
 " {{{ Autocompletion using the TAB key
 
@@ -183,6 +189,7 @@ func! PhpAlign() range
 endfunc
 
 " }}}   
+
 
 " {{{ (Un-)comment
 

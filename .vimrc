@@ -1,20 +1,20 @@
 " .vimrc by Tobias Schlitt <toby@php.net>.
 " No copyright, feel free to use this, as you like, as long as you keep some
 " credits.
-" 
-" General VIM settings file. Optimized for coding PHP can be found in 
+"
+" General VIM settings file. Optimized for coding PHP can be found in
 " ~/vim/ftdetect/php.vim.
 "
 " v1.1pl1
 "
 " Changelog:
-" 
+"
 " v1.1:
 " --------------
 "  - Added versioning and changelog
 "  - Added auto-completion using <TAB>
 "  - Added auto-reload command, when .vimrc changes
-"  - Deactivated <CTRL>-p => "pear package" in favor of 
+"  - Deactivated <CTRL>-p => "pear package" in favor of
 "  - Mapped <CTRL>-p => "run through CLI"
 "  - Added fold markers for better overview
 "  - Added for mapping for wrapping visual selections into chars (like '/(/...)
@@ -52,6 +52,8 @@
 " Delete all auto commands (needed to auto source .vimrc after saving)
 :autocmd!
 
+:set mouse=a
+
 " Set new grep command, which ignores SVN!
 " TODO: Add this to SVN
 set grepprg=/usr/bin/vimgrep\ $*\ /dev/null
@@ -63,7 +65,7 @@ map <F6> :setlocal spell! spelllang=de<cr>
 
 " Highlight current line in insert mode.
 autocmd InsertLeave * se nocul
-autocmd InsertEnter * se cul 
+autocmd InsertEnter * se cul
 
 " Reads the skeleton php file
 " Note: The normal command afterwards deletes an ugly pending line and moves
@@ -74,17 +76,20 @@ autocmd BufNewFile *.php 0r ~/.vim/skeleton.php | normal Gdda
 autocmd BufNewFile *.txt 0r ~/.vim/skeleton.txt | normal GddOAOAOAOAOAOAOAOAOA
 autocmd BufNewFile *.rst 0r ~/.vim/skeleton.txt | normal GddOAOAOAOAOAOAOAOAOA
 
-" Disable phpsyntax based indenting for .php files {{{
+" Disable phpsyntax base
+" d indenting for .php files {{{
 au BufRead,BufNewFile *.php		set indentexpr= | set smartindent
 " }}}
 
-" {{{ .phps files handled like .php
+"
+" {{{ .phps files hiandlied like .php
 
 au BufRead,BufNewFile *.phps		set filetype=php
 
 " }}}
 
-" {{{  Settings   
+"
+" {{{  Settings
 
 " Use filetype plugins, e.g. for PHP
 filetype plugin on
@@ -94,6 +99,29 @@ filetype indent on
 set ruler
 set laststatus=2
 
+set wrapscan
+set t_Co=256
+colorscheme wombat256mod
+
+autocmd VimEnter * NERDTree | wincmd p
+autocmd FileType python set omnifunc=pythoncomplete#Complete
+autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
+autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+autocmd BufWritePre * :%s/\s\+$//e
+
+source ~/.vim/php-doc.vim
+inoremap <C-P> <ESC>:call PhpDocSingle()<CR>
+nnoremap <C-P> :call PhpDocSingle()<CR>
+vnoremap <C-P> :call PhpDocRange()<CR>
+syntax on
+
+inoremap <C-P> :call PhpDocSingle()<CR>
+nnoremap <C-P> :call PhpDocSingle()<CR>
+vnoremap <C-P> :call PhpDocRange()<CR>
+
 " Set standard setting for PEAR coding standards
 set tabstop=4
 set shiftwidth=4
@@ -102,16 +130,13 @@ set shiftwidth=4
 set number
 
 " Enable folding by fold markers
-set foldmethod=marker 
+set foldmethod=marker
 
 " Autoclose folds, when moving out of them
 set foldclose=all
 
 " Use incremental searching
 set incsearch
-
-" Do not highlight search results
-set nohlsearch
 
 " Jump 5 lines when running out of the screen
 set scrolljump=5
@@ -129,7 +154,11 @@ set modeline
 nnoremap <silent><C-Left>  :<C-u>cal search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\>\@!\)\<Bar>\%^','bW')<CR>
 nnoremap <silent><C-Right> :<C-u>cal search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\>\@!\)\<Bar>\%$','W')<CR>
 inoremap <silent><C-Left>  <C-o>:cal search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\>\@!\)\<Bar>\%^','bW')<CR>
-inoremap <silent><C-Right> <C-o>:cal search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\>\@!\)\<Bar>\%$','W')<CR> 
+inoremap <silent><C-Right> <C-o>:cal search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\>\@!\)\<Bar>\%$','W')<CR>
+
+" phpunit compilation
+com! -nargs=* Phpunit make -c app <q-args> | cw
+
 
 " }}}
 
@@ -144,13 +173,13 @@ autocmd InsertLeave <buffer> se nopaste
 autocmd bufwritepost .vimrc source $MYVIMRC
 
 " Undo history between sessions
-set undodir=~/.vim/undodir
-set undofile
-set undolevels=1000 "maximum number of changes that can be undone
-set undoreload=10000 "maximum number lines to save for undo on a buffer reload
+" set undodir=~/.vim/undodir
+" set undofile
+" set undolevels=1000 "maximum number of changes that can be undone
+" set undoreload=10000 "maximum number lines to save for undo on a buffer reload
 
 " Colored column (to see line size violations)
-set colorcolumn=80
+" set colorcolumn=80
 
 " Show large "menu" with auto completion options
 set wildmenu
@@ -167,6 +196,21 @@ func! RemoveTrailingWhitespace()
 endfunc
 
 " TODO: Yank last command output to certain register
+
+
+function! OpenPhpFunction (keyword)
+  let proc_keyword = substitute(a:keyword , '_', '-', 'g')
+  exe 'split'
+  exe 'enew'
+  exe "set buftype=nofile"
+  exe 'silent r!lynx -dump -nolist http://ca.php.net/'.proc_keyword
+  exe 'norm gg'
+  exe 'call search ("' . a:keyword .'")'
+  exe 'norm dgg'
+  exe 'call search("User Contributed Notes")'
+  exe 'norm dGgg'
+endfunction
+au FileType php map K :call OpenPhpFunction('<C-r><C-w>')<CR>
 
 " Source local settings -- this should always be the LAST thing to do in here!
 if filereadable($HOME . "/.vimlocalrc")
