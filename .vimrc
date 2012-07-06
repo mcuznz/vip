@@ -82,7 +82,7 @@ au BufRead,BufNewFile *.php		set indentexpr= | set smartindent
 " }}}
 
 "
-" {{{ .phps files hiandlied like .php
+" {{{ .phps files handlied like .php
 
 au BufRead,BufNewFile *.phps		set filetype=php
 
@@ -94,6 +94,9 @@ au BufRead,BufNewFile *.phps		set filetype=php
 " Use filetype plugins, e.g. for PHP
 filetype plugin on
 filetype indent on
+
+set exrc
+set secure
 
 " Show nice info in ruler
 set ruler
@@ -110,7 +113,6 @@ autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-autocmd BufWritePre * :%s/\s\+$//e
 
 source ~/.vim/php-doc.vim
 inoremap <C-P> <ESC>:call PhpDocSingle()<CR>
@@ -156,10 +158,6 @@ nnoremap <silent><C-Right> :<C-u>cal search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\
 inoremap <silent><C-Left>  <C-o>:cal search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\>\@!\)\<Bar>\%^','bW')<CR>
 inoremap <silent><C-Right> <C-o>:cal search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\>\@!\)\<Bar>\%$','W')<CR>
 
-" phpunit compilation
-com! -nargs=* Phpunit make -c app <q-args> | cw
-
-
 " }}}
 
 " Toggle paste with <ins>
@@ -188,12 +186,6 @@ set wildmode=list:longest
 " Write with sudo ":w!!"
 cnoremap w!! w !sudo tee % >/dev/null
 
-" inoremap <CR> <CR><Esc>:call RemoveTrailingWhitespace()<CR>i
-
-func! RemoveTrailingWhitespace()
-	let l:lastline = line(".") - 1
-	call setline(l:lastline, substitute(getline(l:lastline), ' \+$', '', ''))
-endfunc
 
 " TODO: Yank last command output to certain register
 
