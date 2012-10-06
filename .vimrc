@@ -65,6 +65,7 @@ Bundle 'gmarik/vundle'
 "
 " original repos on github
 Bundle 'tpope/vim-fugitive'
+Bundle 'embear/vim-localvimrc'
 " vim-scripts repos
 Bundle 'L9'
 Bundle 'FuzzyFinder'
