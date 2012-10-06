@@ -25,9 +25,10 @@ If you want to just use the whole VIP package, maybe because you don't have any
 vim settings yet, you can use the ``install.sh`` command.
 
 It will tell you to backup/remove your current vim configs and symlink the
-necessary VIP folders to your home directory.::
+necessary VIP folders to your home directory. It will also install the Vundle
+plugin manager and install all plugins associated with it.::
 
-   git clone https://github.com/tobyS/vip.git
+   git clone --recursive https://github.com/JCook21/vip.git
    cd vip
    ./install.sh
    # Don't remove your clone as the files are only symlinked
