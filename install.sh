@@ -18,6 +18,9 @@ fi
 ln -s $vippath"/.vim" ~/.vim
 ln -s $vippath"/.vimrc" ~/.vimrc
 
+echo "Installing Bundles"
+vim +BundleInstall +qall
+
 echo "Installed"
 echo
 
