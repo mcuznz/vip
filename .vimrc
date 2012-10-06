@@ -53,15 +53,33 @@
 :autocmd!
 
 :set mouse=a
+filetype off                   " required!
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+" let Vundle manage Vundle
+" required! 
+Bundle 'gmarik/vundle'
+
+" My Bundles here:
+"
+" original repos on github
+Bundle 'tpope/vim-fugitive'
+" vim-scripts repos
+Bundle 'L9'
+Bundle 'FuzzyFinder'
+" non github repos
+Bundle 'git://git.wincent.com/command-t.git'
+Bundle 'joonty/vdebug.git'
 
 " Set new grep command, which ignores SVN!
 " TODO: Add this to SVN
 set grepprg=/usr/bin/vimgrep\ $*\ /dev/null
 
 " Map <F5> to turn spelling on (VIM 7.0+)
-map <F5> :setlocal spell! spelllang=en_us<cr>
+" map <F5> :setlocal spell! spelllang=en_us<cr>
 " Map <F6> to turn spelling (de) on (VIM 7.0+)
-map <F6> :setlocal spell! spelllang=de<cr>
+" map <F6> :setlocal spell! spelllang=de<cr>
 
 " Highlight current line in insert mode.
 autocmd InsertLeave * se nocul
@@ -106,7 +124,6 @@ set wrapscan
 set t_Co=256
 colorscheme wombat256mod
 
-autocmd VimEnter * NERDTree | wincmd p
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
@@ -115,9 +132,6 @@ autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 
 source ~/.vim/php-doc.vim
-inoremap <C-P> <ESC>:call PhpDocSingle()<CR>
-nnoremap <C-P> :call PhpDocSingle()<CR>
-vnoremap <C-P> :call PhpDocRange()<CR>
 syntax on
 
 inoremap <C-P> :call PhpDocSingle()<CR>
@@ -157,7 +171,6 @@ nnoremap <silent><C-Left>  :<C-u>cal search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\
 nnoremap <silent><C-Right> :<C-u>cal search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\>\@!\)\<Bar>\%$','W')<CR>
 inoremap <silent><C-Left>  <C-o>:cal search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\>\@!\)\<Bar>\%^','bW')<CR>
 inoremap <silent><C-Right> <C-o>:cal search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\>\@!\)\<Bar>\%$','W')<CR>
-
 " }}}
 
 " Toggle paste with <ins>
@@ -170,24 +183,12 @@ autocmd InsertLeave <buffer> se nopaste
 " Source .vimrc after saving .vimrc
 autocmd bufwritepost .vimrc source $MYVIMRC
 
-" Undo history between sessions
-" set undodir=~/.vim/undodir
-" set undofile
-" set undolevels=1000 "maximum number of changes that can be undone
-" set undoreload=10000 "maximum number lines to save for undo on a buffer reload
-
-" Colored column (to see line size violations)
-" set colorcolumn=80
-
 " Show large "menu" with auto completion options
 set wildmenu
 set wildmode=list:longest
 
 " Write with sudo ":w!!"
 cnoremap w!! w !sudo tee % >/dev/null
-
-
-" TODO: Yank last command output to certain register
 
 
 function! OpenPhpFunction (keyword)
