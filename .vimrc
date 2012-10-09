@@ -58,7 +58,7 @@ filetype off                   " required!
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 " let Vundle manage Vundle
-" required! 
+" required!
 Bundle 'gmarik/vundle'
 
 " My Bundles here:
@@ -155,6 +155,9 @@ set foldclose=all
 
 " Use incremental searching
 set incsearch
+
+" Highlight search matches
+set hlsearch
 
 " Jump 5 lines when running out of the screen
 set scrolljump=5
