@@ -50,9 +50,10 @@
 "  - Added skeleton file to be read for new PHP files.
 
 " Delete all auto commands (needed to auto source .vimrc after saving)
-:autocmd!
+autocmd!
 
-:set mouse=a
+set mouse=a
+set nocompatible
 filetype off                   " required!
 
 set rtp+=~/.vim/bundle/vundle/
@@ -72,6 +73,7 @@ Bundle 'joonty/vdebug.git'
 Bundle 'L9'
 Bundle 'FuzzyFinder'
 Bundle 'taglist.vim'
+Bundle 'surround.vim'
 " non github repos
 Bundle 'git://git.wincent.com/command-t.git'
 
@@ -115,6 +117,8 @@ au BufRead,BufNewFile *.phps		set filetype=php
 " Use filetype plugins, e.g. for PHP
 filetype plugin on
 filetype indent on
+
+runtime macros/matchit.vim
 
 set exrc
 set secure
