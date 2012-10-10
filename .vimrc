@@ -54,7 +54,12 @@ autocmd!
 
 set mouse=a
 set nocompatible
-filetype off                   " required!
+" Set the correct terminal type to make sure keys like home and end work
+if match($TERM, "screen")!=-1
+	set term=xterm
+endif
+" required by Vundle!
+filetype off                   
 
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
@@ -67,7 +72,7 @@ Bundle 'gmarik/vundle'
 " original repos on github
 Bundle 'tpope/vim-fugitive'
 Bundle 'embear/vim-localvimrc'
-Bundle 'git://github.com/scrooloose/syntastic.git'
+Bundle 'scrooloose/syntastic.git'
 Bundle 'joonty/vdebug.git'
 " vim-scripts repos
 Bundle 'L9'
@@ -80,11 +85,6 @@ Bundle 'git://git.wincent.com/command-t.git'
 " Set new grep command, which ignores SVN!
 " TODO: Add this to SVN
 set grepprg=/usr/bin/vimgrep\ $*\ /dev/null
-
-" Map <F5> to turn spelling on (VIM 7.0+)
-" map <F5> :setlocal spell! spelllang=en_us<cr>
-" Map <F6> to turn spelling (de) on (VIM 7.0+)
-" map <F6> :setlocal spell! spelllang=de<cr>
 
 " Highlight current line in insert mode.
 autocmd InsertLeave * se nocul
