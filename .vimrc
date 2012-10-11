@@ -52,14 +52,21 @@
 " Delete all auto commands (needed to auto source .vimrc after saving)
 autocmd!
 
-set mouse=a
-set nocompatible
-" Set the correct terminal type to make sure keys like home and end work
-if match($TERM, "screen")!=-1
-	set term=xterm
-endif
+:set mouse=a
+:set nocompatible
 " required by Vundle!
-filetype off                   
+filetype off
+
+""""""""""""""
+" tmux fixes "
+" """"""""""""""
+" Handle tmux $TERM quirks in vim
+if $TERM =~ '^screen-256color'
+	map <Esc>OH <Home>
+	map! <Esc>OH <Home>
+	map <Esc>OF <End>
+	map! <Esc>OF <End>
+endif
 
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
