@@ -81,6 +81,7 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'embear/vim-localvimrc'
 Bundle 'scrooloose/syntastic.git'
 Bundle 'joonty/vdebug.git'
+Bundle 'joonty/vim-phpunitqf'
 " vim-scripts repos
 Bundle 'L9'
 Bundle 'FuzzyFinder'
