@@ -79,14 +79,15 @@ Bundle 'gmarik/vundle'
 " original repos on github
 Bundle 'tpope/vim-fugitive'
 Bundle 'embear/vim-localvimrc'
-Bundle 'scrooloose/syntastic.git'
 Bundle 'joonty/vdebug.git'
 Bundle 'joonty/vim-phpunitqf'
+Bundle 'scrooloose/syntastic'
 " vim-scripts repos
 Bundle 'L9'
 Bundle 'FuzzyFinder'
 Bundle 'taglist.vim'
 Bundle 'surround.vim'
+Bundle 'AutoTag'
 " non github repos
 Bundle 'git://git.wincent.com/command-t.git'
 
@@ -134,6 +135,10 @@ set secure
 " Show nice info in ruler
 set ruler
 set laststatus=2
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_enable_signs=1
 
 set wrapscan
 set t_Co=256
