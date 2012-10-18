@@ -135,10 +135,6 @@ set secure
 " Show nice info in ruler
 set ruler
 set laststatus=2
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_enable_signs=1
 
 set wrapscan
 set t_Co=256

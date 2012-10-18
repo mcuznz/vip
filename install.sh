@@ -18,6 +18,7 @@ fi
 ln -s $vippath"/.vim" ~/.vim
 ln -s $vippath"/.vimrc" ~/.vimrc
 
+git clone https://github.com/gmarik/vundle.git $vippath/.vim/bundle/vundle
 echo "Installing Bundles"
 vim +BundleInstall +qall
 
