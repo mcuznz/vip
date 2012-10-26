@@ -83,13 +83,10 @@ Bundle 'joonty/vdebug.git'
 Bundle 'joonty/vim-phpunitqf'
 Bundle 'scrooloose/syntastic'
 " vim-scripts repos
-Bundle 'L9'
-Bundle 'FuzzyFinder'
 Bundle 'taglist.vim'
 Bundle 'surround.vim'
 Bundle 'AutoTag'
 " non github repos
-Bundle 'git://git.wincent.com/command-t.git'
 
 " Set new grep command, which ignores SVN!
 " TODO: Add this to SVN
@@ -125,7 +122,8 @@ au BufRead,BufNewFile *.phps		set filetype=php
 
 " Use filetype plugins, e.g. for PHP
 filetype plugin on
-filetype indent on
+filetype plugin indent on
+syntax on
 
 runtime macros/matchit.vim
 
@@ -150,9 +148,9 @@ autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 source ~/.vim/php-doc.vim
 syntax on
 
-inoremap <C-P> :call PhpDocSingle()<CR>
-nnoremap <C-P> :call PhpDocSingle()<CR>
-vnoremap <C-P> :call PhpDocRange()<CR>
+inoremap <C-P> :set paste<CR>:exe PhpDoc()<CR>:set nopaste<CR>i
+nnoremap <C-P> :set paste<CR>:exe PhpDoc()<CR>:set nopaste<CR>
+vnoremap <C-P> :set paste<CR>:exe PhpDoc()<CR>:set nopaste<CR>
 
 " Set standard setting for PEAR coding standards
 set tabstop=4
@@ -193,6 +191,8 @@ inoremap <silent><C-Right> <C-o>:cal search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\
 
 let g:localvimrc_sandbox=0
 let g:localvimrc_ask=0
+
+let g:syntastic_enable_signs=1
 " }}}
 
 " Toggle paste with <ins>
