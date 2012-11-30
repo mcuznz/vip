@@ -83,6 +83,7 @@ Bundle 'joonty/vdebug.git'
 Bundle 'joonty/vim-phpunitqf'
 Bundle 'scrooloose/syntastic'
 Bundle 'tpope/vim-unimpaired'
+Bundle 'arnaud-lb/vim-php-namespace'
 " vim-scripts repos
 Bundle 'taglist.vim'
 Bundle 'surround.vim'
