@@ -84,10 +84,13 @@ Bundle 'joonty/vim-phpunitqf'
 Bundle 'scrooloose/syntastic'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'arnaud-lb/vim-php-namespace'
+Bundle 'othree/html5.vim'
+Bundle 'beyondwords/vim-twig'
 " vim-scripts repos
 Bundle 'taglist.vim'
 Bundle 'surround.vim'
 Bundle 'AutoTag'
+Bundle 'JSON.vim'
 " non github repos
 
 " Set new grep command, which ignores SVN!
@@ -106,6 +109,18 @@ autocmd BufNewFile *.php 0r ~/.vim/skeleton.php | normal Gdda
 " Reads the skeleton txt file
 autocmd BufNewFile *.txt 0r ~/.vim/skeleton.txt | normal GddOAOAOAOAOAOAOAOAOA
 autocmd BufNewFile *.rst 0r ~/.vim/skeleton.txt | normal GddOAOAOAOAOAOAOAOAOA
+
+" JSON syntax highlighting
+au! BufRead,BufNewFile *.json set filetype=json 
+augroup json_autocmd 
+	autocmd! 
+	autocmd FileType json set autoindent 
+	autocmd FileType json set formatoptions=tcq2l 
+	autocmd FileType json set textwidth=78 shiftwidth=2 
+	autocmd FileType json set softtabstop=2 tabstop=8 
+	autocmd FileType json set expandtab 
+	autocmd FileType json set foldmethod=syntax 
+augroup END
 
 " Disable phpsyntax base
 " d indenting for .php files {{{
