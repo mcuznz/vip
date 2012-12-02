@@ -57,7 +57,7 @@ autocmd BufWinLeave * call clearmatches()
 " noremap ; :!php5 -l %<CR>
 
 " Map <leader> ; to "add ; to the end of the line, when missing"
-noremap <leader> ; :s/\([^;]\)$/\1;/<cr>
+noremap <leader>; :s/\([^;]\)$/\1;/<cr>
 
 " DEPRECATED in favor of PDV documentation (see below!)
 " Map <CTRL>-P to run actual file with PHP CLI
