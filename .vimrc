@@ -91,7 +91,6 @@ Bundle 'taglist.vim'
 Bundle 'surround.vim'
 Bundle 'AutoTag'
 Bundle 'JSON.vim'
-" non github repos
 
 " Set new grep command, which ignores SVN!
 " TODO: Add this to SVN
@@ -122,19 +121,17 @@ augroup json_autocmd
 	autocmd FileType json set foldmethod=syntax 
 augroup END
 
-" Disable phpsyntax base
 " d indenting for .php files {{{
+" Disable phpsyntax base
 au BufRead,BufNewFile *.php		set indentexpr= | set smartindent
 " }}}
 
-"
 " {{{ .phps files handlied like .php
 
 au BufRead,BufNewFile *.phps		set filetype=php
 
 " }}}
 
-"
 " {{{  Settings
 
 " Use filetype plugins, e.g. for PHP
@@ -216,6 +213,8 @@ let g:syntastic_enable_signs=1
 " saving them first
 set hidden
 
+" Allow the dot command to be used in visual mode
+:vnoremap . :norm.<CR>
 " Toggle paste with <ins>
 set pastetoggle=<ins>
 " Go to insert mode when <ins> pressed in normal mode
@@ -266,3 +265,4 @@ if filereadable($HOME . "/.vimlocalrc")
     source ~/.vimlocalrc
 endif
 
+" }}}
