@@ -212,6 +212,10 @@ let g:localvimrc_ask=0
 let g:syntastic_enable_signs=1
 " }}}
 
+" Set the hidden option to enable moving through args and buffers without
+" saving them first
+set hidden
+
 " Toggle paste with <ins>
 set pastetoggle=<ins>
 " Go to insert mode when <ins> pressed in normal mode
