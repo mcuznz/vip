@@ -232,7 +232,7 @@ set wildmode=list:longest
 " Write with sudo ":w!!"
 cnoremap w!! w !sudo tee % >/dev/null
 
-
+" Search the php manual from within Vim
 function! OpenPhpFunction (keyword)
   let proc_keyword = substitute(a:keyword , '_', '-', 'g')
   exe 'split'
@@ -258,7 +258,13 @@ let Tlist_WinWidth = 40
 " close tlist when a selection is made
 let Tlist_Close_On_Select = 1
 
+" Toggle the taglist with <F8>
 nnoremap <F8> :TlistToggle <CR>
+
+" Autoreload Vimrc every time it's saved.
+if has("autocmd")
+	autocmd! bufwritepost .vimrc source $MYVIMRC
+endif
 
 " Source local settings -- this should always be the LAST thing to do in here!
 if filereadable($HOME . "/.vimlocalrc")
