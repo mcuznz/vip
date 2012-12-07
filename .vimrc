@@ -86,6 +86,7 @@ Bundle 'tpope/vim-unimpaired'
 Bundle 'arnaud-lb/vim-php-namespace'
 Bundle 'othree/html5.vim'
 Bundle 'beyondwords/vim-twig'
+Bundle 'kien/ctrlp.vim'
 " vim-scripts repos
 Bundle 'taglist.vim'
 Bundle 'surround.vim'
@@ -110,15 +111,15 @@ autocmd BufNewFile *.txt 0r ~/.vim/skeleton.txt | normal GddOAOAOAOAOAOAO
 autocmd BufNewFile *.rst 0r ~/.vim/skeleton.txt | normal GddOAOAOAOAOAOAOAOAOA
 
 " JSON syntax highlighting
-au! BufRead,BufNewFile *.json set filetype=json 
-augroup json_autocmd 
-	autocmd! 
-	autocmd FileType json set autoindent 
-	autocmd FileType json set formatoptions=tcq2l 
-	autocmd FileType json set textwidth=78 shiftwidth=2 
-	autocmd FileType json set softtabstop=2 tabstop=8 
-	autocmd FileType json set expandtab 
-	autocmd FileType json set foldmethod=syntax 
+au! BufRead,BufNewFile *.json set filetype=json
+augroup json_autocmd
+	autocmd!
+	autocmd FileType json set autoindent
+	autocmd FileType json set formatoptions=tcq2l
+	autocmd FileType json set textwidth=78 shiftwidth=2
+	autocmd FileType json set softtabstop=2 tabstop=8
+	autocmd FileType json set expandtab
+	autocmd FileType json set foldmethod=syntax
 augroup END
 
 " d indenting for .php files {{{
@@ -207,7 +208,8 @@ let g:localvimrc_sandbox=0
 let g:localvimrc_ask=0
 
 let g:syntastic_enable_signs=1
-" }}}
+
+let g:ctrlp_map = '<leader><c-p>'
 
 " Set the hidden option to enable moving through args and buffers without
 " saving them first
