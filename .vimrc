@@ -104,6 +104,10 @@ imap <down> <nop>
 imap <left> <nop>
 imap <right> <nop>
 
+" Allow gf to work with PHP namespaced classes.
+set includeexpr=substitute(v:fname,'\\\','/','g')
+set suffixesadd+=.php
+
 " Set new grep command, which ignores SVN!
 " TODO: Add this to SVN
 set grepprg=/usr/bin/vimgrep\ $*\ /dev/null
