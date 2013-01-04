@@ -87,6 +87,7 @@ Bundle 'arnaud-lb/vim-php-namespace'
 Bundle 'othree/html5.vim'
 Bundle 'beyondwords/vim-twig'
 Bundle 'kien/ctrlp.vim'
+Bundle 'stephpy/vim-php-cs-fixer'
 " vim-scripts repos
 Bundle 'taglist.vim'
 Bundle 'surround.vim'
@@ -107,6 +108,16 @@ imap <right> <nop>
 " Allow gf to work with PHP namespaced classes.
 set includeexpr=substitute(v:fname,'\\\','/','g')
 set suffixesadd+=.php
+
+" PHP cs fixer config
+let g:php_cs_fixer_path = "/usr/local/bin/php-cs-fixer" " define the path to the php-cs-fixer.phar
+let g:php_cs_fixer_level = "all"                " which level ?
+let g:php_cs_fixer_config = "default"           " configuration
+let g:php_cs_fixer_php_path = "php"             " Path to PHP
+let g:php_cs_fixer_fixers_list = ""             " List of fixers
+let g:php_cs_fixer_enable_default_mapping = 1   " Enable the mapping by default (<leader>pcd)
+let g:php_cs_fixer_dry_run = 0                  " Call command with dry-run option
+let g:php_cs_fixer_verbose = 0                  " Return the output of command if 1, else an inline information.
 
 " Set new grep command, which ignores SVN!
 " TODO: Add this to SVN
