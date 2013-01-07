@@ -86,7 +86,6 @@ Bundle 'tpope/vim-unimpaired'
 Bundle 'arnaud-lb/vim-php-namespace'
 Bundle 'othree/html5.vim'
 Bundle 'beyondwords/vim-twig'
-Bundle 'kien/ctrlp.vim'
 Bundle 'stephpy/vim-php-cs-fixer'
 " vim-scripts repos
 Bundle 'taglist.vim'
