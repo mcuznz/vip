@@ -88,6 +88,8 @@ Bundle 'othree/html5.vim'
 Bundle 'beyondwords/vim-twig'
 Bundle 'kien/ctrlp.vim'
 Bundle 'stephpy/vim-php-cs-fixer'
+Bundle 'puppetlabs/puppet-syntax-vim'
+Bundle 'tobyS/pdv'
 " vim-scripts repos
 Bundle 'taglist.vim'
 Bundle 'surround.vim'
@@ -186,7 +188,6 @@ autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 
-source ~/.vim/php-doc.vim
 syntax on
 
 inoremap <C-P> :set paste<CR>:exe PhpDoc()<CR>:set nopaste<CR>i
