@@ -87,6 +87,7 @@ Bundle 'arnaud-lb/vim-php-namespace'
 Bundle 'othree/html5.vim'
 Bundle 'beyondwords/vim-twig'
 Bundle 'stephpy/vim-php-cs-fixer'
+Bundle 'puppetlabs/puppet-syntax-vim'
 " vim-scripts repos
 Bundle 'taglist.vim'
 Bundle 'surround.vim'
