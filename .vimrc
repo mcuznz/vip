@@ -189,9 +189,9 @@ autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 
 syntax on
 
-inoremap <C-P> :set paste<CR>:exe PhpDoc()<CR>:set nopaste<CR>i
-nnoremap <C-P> :set paste<CR>:exe PhpDoc()<CR>:set nopaste<CR>
-vnoremap <C-P> :set paste<CR>:exe PhpDoc()<CR>:set nopaste<CR>
+inoremap <C-P> :set paste<CR>:exe pdv#DocumentCurrentLine()<CR>:set nopaste<CR>i
+nnoremap <C-P> :set paste<CR>:exe pdv#DocumentCurrentLine()<CR>:set nopaste<CR>
+vnoremap <C-P> :set paste<CR>:exe pdv#DocumentCurrentLine()<CR>:set nopaste<CR>
 
 " Set standard setting for PEAR coding standards
 set tabstop=4
