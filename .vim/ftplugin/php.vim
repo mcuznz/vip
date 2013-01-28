@@ -1,8 +1,6 @@
 " .vim/ftplugin/php.vim by Tobias Schlitt <toby@php.net>.
 " No copyright, feel free to use this, as you like.
 
-" Including PDV
-source ~/.vim/php-doc.vim
 
 let PHP_autoformatcomment = 1
 
@@ -61,10 +59,10 @@ noremap <leader>; :s/\([^;]\)$/\1;/<CR> :noh<CR>
 " noremap <C-P> :w!<CR>:!php5 %<CR>
 
 " Map <ctrl>+p to single line mode documentation (in insert and command mode)
-inoremap <buffer> <C-P> :call PhpDocSingle()<CR>
-nnoremap <buffer> <C-P> :call PhpDocSingle()<CR>
+inoremap <buffer> <C-P> :call PhpDoc()<CR>
+nnoremap <buffer> <C-P> :call PhpDoc()<CR>
 " Map <ctrl>+p to multi line mode documentation (in visual mode)
-vnoremap <buffer> <C-P> :call PhpDocRange()<CR>
+vnoremap <buffer> <C-P> :call PhpDoc()<CR>
 
 " Map <CTRL>-a to alignment function
 vnoremap <buffer> <C-a> :call PhpAlign()<CR>

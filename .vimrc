@@ -89,6 +89,8 @@ Bundle 'beyondwords/vim-twig'
 Bundle 'stephpy/vim-php-cs-fixer'
 Bundle 'puppetlabs/puppet-syntax-vim'
 Bundle 'tobyS/pdv'
+Bundle 'jakobwesthoff/whitespacetrail'
+Bundle 'Lokaltog/vim-powerline'
 " vim-scripts repos
 Bundle 'taglist.vim'
 Bundle 'surround.vim'
