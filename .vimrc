@@ -127,9 +127,11 @@ let g:php_cs_fixer_verbose = 0                  " Return the output of command i
 set grepprg=/usr/bin/vimgrep\ $*\ /dev/null
 
 " Highlight current line in insert mode.
-autocmd InsertLeave * se nocul
-autocmd InsertEnter * se cul
+autocmd InsertLeave * set nocursorline
+autocmd InsertEnter * set cursorline
 
+" Save files as root
+cnoremap w!! w !sudo tee % >/dev/null
 " Reads the skeleton php file
 " Note: The normal command afterwards deletes an ugly pending line and moves
 " the cursor to the middle of the file.
@@ -212,8 +214,8 @@ set foldclose=all
 " Use incremental searching
 set incsearch
 
-" Highlight search matches
-set hlsearch
+" Don't highlight search matches
+set nohlsearch
 
 " Jump 5 lines when running out of the screen
 set scrolljump=5
