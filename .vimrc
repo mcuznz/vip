@@ -91,6 +91,7 @@ Bundle 'puppetlabs/puppet-syntax-vim'
 Bundle 'tobyS/pdv'
 Bundle 'jakobwesthoff/whitespacetrail'
 Bundle 'Lokaltog/vim-powerline'
+Bundle 'SirVer/ultisnips'
 " vim-scripts repos
 Bundle 'taglist.vim'
 Bundle 'surround.vim'
@@ -129,6 +130,8 @@ set grepprg=/usr/bin/vimgrep\ $*\ /dev/null
 " Highlight current line in insert mode.
 autocmd InsertLeave * set nocursorline
 autocmd InsertEnter * set cursorline
+
+let g:Powerline_symbols = 'unicode'
 
 " Save files as root
 cnoremap w!! w !sudo tee % >/dev/null
@@ -194,9 +197,6 @@ autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 source ~/.vim/php-doc.vim
 syntax on
 
-inoremap <C-P> :set paste<CR>:exe pdv#DocumentCurrentLine()<CR>:set nopaste<CR>i
-nnoremap <C-P> :set paste<CR>:exe pdv#DocumentCurrentLine()<CR>:set nopaste<CR>
-vnoremap <C-P> :set paste<CR>:exe pdv#DocumentCurrentLine()<CR>:set nopaste<CR>
 
 " Set standard setting for PEAR coding standards
 set tabstop=4
@@ -304,4 +304,19 @@ if filereadable($HOME . "/.vimlocalrc")
     source ~/.vimlocalrc
 endif
 
+" Configure Ultisnips
+let g:UltiSnipsExpandTrigger = "<Tab>"
+let g:UltiSnipsJumpForwardTrigger = "<Tab>"
+let g:UltiSnipsListSnippets = "<M-Tab>"
+" Set a custom snippets directory
+let g:UltiSnipsSnippetsDir = $HOME . "/.vim/snippets/"
+let g:UltiSnipsSnippetDirectories = ["snippets"]
+
+" Configure PDV
+let g:pdv_template_dir = $HOME . "/.vim/bundle/pdv/templates_snip"
+nnoremap <buffer> <C-p> :call pdv#DocumentWithSnip()<CR>
+inoremap <buffer> <C-p> :call pdv#DocumentWithSnip()<CR>
+"inoremap <C-P> :set paste<CR>:exe pdv#DocumentCurrentLine()<CR>:set nopaste<CR>i
+"nnoremap <C-P> :set paste<CR>:exe pdv#DocumentCurrentLine()<CR>:set nopaste<CR>
+"vnoremap <C-P> :set paste<CR>:exe pdv#DocumentCurrentLine()<CR>:set nopaste<CR>
 " }}}
