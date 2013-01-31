@@ -99,16 +99,6 @@ Bundle 'AutoTag'
 Bundle 'JSON.vim'
 Bundle 'phpvim'
 
-" Disable arrow keys!
-map <up> <nop>
-map <down> <nop>
-map <left> <nop>
-map <right> <nop>
-imap <up> <nop>
-imap <down> <nop>
-imap <left> <nop>
-imap <right> <nop>
-
 " Allow gf to work with PHP namespaced classes.
 set includeexpr=substitute(v:fname,'\\\','/','g')
 set suffixesadd+=.php
@@ -305,18 +295,14 @@ if filereadable($HOME . "/.vimlocalrc")
 endif
 
 " Configure Ultisnips
-let g:UltiSnipsExpandTrigger = "<Tab>"
-let g:UltiSnipsJumpForwardTrigger = "<Tab>"
-let g:UltiSnipsListSnippets = "<M-Tab>"
+let g:UltiSnipsExpandTrigger = "<leader><Tab>"
+let g:UltiSnipsListSnippets = "<C-Tab>"
 " Set a custom snippets directory
-let g:UltiSnipsSnippetsDir = $HOME . "/.vim/snippets/"
-let g:UltiSnipsSnippetDirectories = ["snippets"]
+let g:UltiSnipsSnippetsDir = $HOME . "/.vim/bundle/ultisnips/UltiSnips"
+let g:UltiSnipsSnippetDirectories = ["UltiSnips", "snippets"]
 
 " Configure PDV
 let g:pdv_template_dir = $HOME . "/.vim/bundle/pdv/templates_snip"
 nnoremap <buffer> <C-p> :call pdv#DocumentWithSnip()<CR>
 inoremap <buffer> <C-p> :call pdv#DocumentWithSnip()<CR>
-"inoremap <C-P> :set paste<CR>:exe pdv#DocumentCurrentLine()<CR>:set nopaste<CR>i
-"nnoremap <C-P> :set paste<CR>:exe pdv#DocumentCurrentLine()<CR>:set nopaste<CR>
-"vnoremap <C-P> :set paste<CR>:exe pdv#DocumentCurrentLine()<CR>:set nopaste<CR>
 " }}}
