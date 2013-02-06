@@ -301,4 +301,7 @@ nnoremap <buffer> <C-p> :call pdv#DocumentWithSnip()<CR>
 inoremap <buffer> <C-p> :call pdv#DocumentWithSnip()<CR>
 set laststatus=2
 set encoding=UTF-8
+
+" Save all swap files in a home directory
+set directory^=$HOME/.vim_swap//
 " }}}

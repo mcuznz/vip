@@ -15,6 +15,11 @@ then
 	exit
 fi
 
+if [ ! -d ~/.vim_swap ]
+then
+	mkdir ~/.vim_swap
+fi
+
 ln -s $vippath"/.vim" ~/.vim
 ln -s $vippath"/.vimrc" ~/.vimrc
 
