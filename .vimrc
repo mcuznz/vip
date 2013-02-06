@@ -121,7 +121,7 @@ set grepprg=/usr/bin/vimgrep\ $*\ /dev/null
 autocmd InsertLeave * set nocursorline
 autocmd InsertEnter * set cursorline
 
-let g:Powerline_symbols = 'unicode'
+let g:Powerline_symbols = 'fancy'
 
 " Save files as root
 cnoremap w!! w !sudo tee % >/dev/null
@@ -168,10 +168,6 @@ runtime macros/matchit.vim
 
 set exrc
 set secure
-
-" Show nice info in ruler
-set ruler
-set laststatus=2
 
 set wrapscan
 set t_Co=256
@@ -230,18 +226,16 @@ let g:localvimrc_ask=0
 
 let g:syntastic_enable_signs=1
 
-let g:ctrlp_map = '<leader><c-p>'
-
 " Set the hidden option to enable moving through args and buffers without
 " saving them first
 set hidden
 
 " Allow the dot command to be used in visual mode
 :vnoremap . :norm.<CR>
+
 " Toggle paste with <ins>
 set pastetoggle=<ins>
-" Go to insert mode when <ins> pressed in normal mode
-nnoremap <silent> <ins> :setlocal paste!<CR>i
+
 " Switch paste mode off whenever insert mode is left
 autocmd InsertLeave <buffer> se nopaste
 
@@ -305,4 +299,6 @@ let g:UltiSnipsSnippetDirectories = ["UltiSnips", "snippets"]
 let g:pdv_template_dir = $HOME . "/.vim/bundle/pdv/templates_snip"
 nnoremap <buffer> <C-p> :call pdv#DocumentWithSnip()<CR>
 inoremap <buffer> <C-p> :call pdv#DocumentWithSnip()<CR>
+set laststatus=2
+set encoding=UTF-8
 " }}}
