@@ -58,12 +58,6 @@ noremap <leader>; :s/\([^;]\)$/\1;/<CR> :noh<CR>
 " Map <CTRL>-P to run actual file with PHP CLI
 " noremap <C-P> :w!<CR>:!php5 %<CR>
 
-" Map <ctrl>+p to single line mode documentation (in insert and command mode)
-inoremap <buffer> <C-P> :call PhpDoc()<CR>
-nnoremap <buffer> <C-P> :call PhpDoc()<CR>
-" Map <ctrl>+p to multi line mode documentation (in visual mode)
-vnoremap <buffer> <C-P> :call PhpDoc()<CR>
-
 " Map <CTRL>-a to alignment function
 vnoremap <buffer> <C-a> :call PhpAlign()<CR>
 

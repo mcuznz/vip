@@ -89,6 +89,7 @@ Bundle 'beyondwords/vim-twig'
 Bundle 'stephpy/vim-php-cs-fixer'
 Bundle 'puppetlabs/puppet-syntax-vim'
 Bundle 'tobyS/pdv'
+Bundle 'tobyS/vmustache'
 Bundle 'jakobwesthoff/whitespacetrail'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'SirVer/ultisnips'
@@ -180,7 +181,6 @@ autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 
-source ~/.vim/php-doc.vim
 syntax on
 
 
@@ -237,7 +237,7 @@ set hidden
 set pastetoggle=<ins>
 
 " Switch paste mode off whenever insert mode is left
-autocmd InsertLeave <buffer> se nopaste
+autocmd InsertLeave <buffer> set nopaste
 
 " Source .vimrc after saving .vimrc
 autocmd bufwritepost .vimrc source $MYVIMRC
@@ -298,10 +298,6 @@ let g:UltiSnipsSnippetDirectories = ["UltiSnips", "snippets"]
 " Configure PDV
 let g:pdv_template_dir = $HOME . "/.vim/bundle/pdv/templates_snip"
 nnoremap <buffer> <C-p> :call pdv#DocumentWithSnip()<CR>
-inoremap <buffer> <C-p> :call pdv#DocumentWithSnip()<CR>
 set laststatus=2
 set encoding=UTF-8
-
-" Save all swap files in a home directory
-set directory^=$HOME/.vim_swap//
 " }}}
