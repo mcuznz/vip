@@ -225,6 +225,7 @@ let g:localvimrc_sandbox=0
 let g:localvimrc_ask=0
 
 let g:syntastic_enable_signs=1
+let g:syntastic_php_checkers=['php', 'phpcs', 'phpmd']
 
 " Set the hidden option to enable moving through args and buffers without
 " saving them first
