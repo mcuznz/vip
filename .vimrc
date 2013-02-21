@@ -150,6 +150,9 @@ augroup END
 " d indenting for .php files {{{
 " Disable phpsyntax base
 au BufRead,BufNewFile *.php		set indentexpr= | set smartindent
+" Set standard setting for PEAR coding standards
+set tabstop=4
+set shiftwidth=4
 " }}}
 
 " {{{ .phps files handlied like .php
@@ -165,10 +168,8 @@ filetype plugin on
 filetype plugin indent on
 syntax on
 
-runtime macros/matchit.vim
-
-set exrc
-set secure
+"set exrc
+"set secure
 
 set wrapscan
 set t_Co=256
@@ -182,11 +183,6 @@ autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 
 syntax on
-
-
-" Set standard setting for PEAR coding standards
-set tabstop=4
-set shiftwidth=4
 
 " Show line numbers by default
 set number
@@ -265,30 +261,6 @@ function! OpenPhpFunction (keyword)
 endfunction
 au FileType php map K :call OpenPhpFunction('<C-r><C-w>')<CR>
 
-" set the names of flags
-let tlist_php_settings = 'php;c:class;f:function;d:constant'
-" close all folds except for current file
-let Tlist_File_Fold_Auto_Close = 1
-" make tlist pane active when opened
-let Tlist_GainFocus_On_ToggleOpen = 1
-" width of window
-let Tlist_WinWidth = 40
-" close tlist when a selection is made
-let Tlist_Close_On_Select = 1
-
-" Toggle the taglist with <F8>
-nnoremap <F8> :TlistToggle <CR>
-
-" Autoreload Vimrc every time it's saved.
-if has("autocmd")
-	autocmd! bufwritepost .vimrc source $MYVIMRC
-endif
-
-" Source local settings -- this should always be the LAST thing to do in here!
-if filereadable($HOME . "/.vimlocalrc")
-    source ~/.vimlocalrc
-endif
-
 " Configure Ultisnips
 let g:UltiSnipsExpandTrigger = "<leader><Tab>"
 let g:UltiSnipsListSnippets = "<leader><C-Tab>"
@@ -301,4 +273,14 @@ let g:pdv_template_dir = $HOME . "/.vim/bundle/pdv/templates_snip"
 nnoremap <buffer> <C-p> :call pdv#DocumentWithSnip()<CR>
 set laststatus=2
 set encoding=UTF-8
+
+" Autoreload Vimrc every time it's saved.
+if has("autocmd")
+	autocmd! bufwritepost .vimrc source $MYVIMRC
+endif
+
+" Source local settings -- this should always be the LAST thing to do in here!
+if filereadable($HOME . "/.vimlocalrc")
+    source ~/.vimlocalrc
+endif
 " }}}
