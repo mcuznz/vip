@@ -96,7 +96,7 @@ Bundle 'SirVer/ultisnips'
 " vim-scripts repos
 Bundle 'taglist.vim'
 Bundle 'surround.vim'
-Bundle 'AutoTag'
+"Bundle 'AutoTag'
 Bundle 'JSON.vim'
 Bundle 'phpvim'
 
