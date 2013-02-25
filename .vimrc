@@ -261,6 +261,10 @@ function! OpenPhpFunction (keyword)
 endfunction
 au FileType php map K :call OpenPhpFunction('<C-r><C-w>')<CR>
 
+" Configure PDV
+let g:pdv_template_dir = $HOME . "/.vim/bundle/pdv/templates_snip"
+nnoremap <buffer> <C-p> :call pdv#DocumentWithSnip()<CR>
+
 " Configure Ultisnips
 let g:UltiSnipsExpandTrigger = "<leader><Tab>"
 let g:UltiSnipsListSnippets = "<leader><C-Tab>"
@@ -268,9 +272,6 @@ let g:UltiSnipsListSnippets = "<leader><C-Tab>"
 let g:UltiSnipsSnippetsDir = $HOME . "/.vim/bundle/ultisnips/UltiSnips"
 let g:UltiSnipsSnippetDirectories = ["UltiSnips", "snippets"]
 
-" Configure PDV
-let g:pdv_template_dir = $HOME . "/.vim/bundle/pdv/templates_snip"
-nnoremap <buffer> <C-p> :call pdv#DocumentWithSnip()<CR>
 set laststatus=2
 set encoding=UTF-8
 
