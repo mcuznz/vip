@@ -147,6 +147,9 @@ augroup json_autocmd
 	autocmd FileType json set foldmethod=syntax
 augroup END
 
+" load the man plugin for a nice man viewer
+runtime! ftplugin/man.vim
+
 " d indenting for .php files {{{
 " Disable phpsyntax base
 au BufRead,BufNewFile *.php		set indentexpr= | set smartindent
@@ -166,7 +169,10 @@ au BufRead,BufNewFile *.phps		set filetype=php
 " Use filetype plugins, e.g. for PHP
 filetype plugin on
 filetype plugin indent on
-syntax on
+
+if has('syntax') && !exists('g:syntax_on')
+	syntax enable			" Turn on syntax highlighting
+endif
 
 "set exrc
 "set secure
@@ -242,6 +248,19 @@ autocmd bufwritepost .vimrc source $MYVIMRC
 " Show large "menu" with auto completion options
 set wildmenu
 set wildmode=list:longest
+
+" Save more commands in history
+
+if v:version > 7.03 || v:version == 7.03 && has("patch541")
+  set formatoptions+=j 	" delete comment char on second line when
+                        " joining two commented lines
+endif
+
+set ttyfast
+
+set showbreak=↪\ \
+
+set history=200
 
 " Write with sudo ":w!!"
 cnoremap w!! w !sudo tee % >/dev/null
