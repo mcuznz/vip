@@ -79,12 +79,12 @@ Bundle 'gmarik/vundle'
 " original repos on github
 Bundle 'tpope/vim-fugitive'
 Bundle 'embear/vim-localvimrc'
-Bundle 'joonty/vdebug.git'
+Bundle 'joonty/vdebug'
 Bundle 'joonty/vim-phpunitqf'
 Bundle 'scrooloose/syntastic'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'arnaud-lb/vim-php-namespace'
-Bundle 'othree/html5.vim'
+Bundle 'othree/html5-syntax.vim'
 Bundle 'beyondwords/vim-twig'
 Bundle 'stephpy/vim-php-cs-fixer'
 Bundle 'puppetlabs/puppet-syntax-vim'
@@ -170,15 +170,9 @@ au BufRead,BufNewFile *.phps		set filetype=php
 filetype plugin on
 filetype plugin indent on
 
-if has('syntax') && !exists('g:syntax_on')
-	syntax enable			" Turn on syntax highlighting
-endif
-
-"set exrc
-"set secure
-
 set wrapscan
 set t_Co=256
+set background=dark
 colorscheme wombat256mod
 
 autocmd FileType python set omnifunc=pythoncomplete#Complete
@@ -249,17 +243,11 @@ autocmd bufwritepost .vimrc source $MYVIMRC
 set wildmenu
 set wildmode=list:longest
 
-" Save more commands in history
-
-if v:version > 7.03 || v:version == 7.03 && has("patch541")
-  set formatoptions+=j 	" delete comment char on second line when
-                        " joining two commented lines
-endif
-
 set ttyfast
 
 set showbreak=↪\ \
 
+" Save more commands in history
 set history=200
 
 " Write with sudo ":w!!"
@@ -289,7 +277,7 @@ let g:UltiSnipsExpandTrigger = "<leader><Tab>"
 let g:UltiSnipsListSnippets = "<leader><C-Tab>"
 " Set a custom snippets directory
 let g:UltiSnipsSnippetsDir = $HOME . "/.vim/bundle/ultisnips/UltiSnips"
-let g:UltiSnipsSnippetDirectories = ["UltiSnips", "snippets"]
+let g:UltiSnipsSnippetDirectories = ["UltiSnips", "snippets", "templates_snip"]
 
 set laststatus=2
 set encoding=UTF-8
