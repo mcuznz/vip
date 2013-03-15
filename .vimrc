@@ -93,6 +93,7 @@ Bundle 'tobyS/vmustache'
 Bundle 'jakobwesthoff/whitespacetrail'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'SirVer/ultisnips'
+Bundle 'actionshrimp/vim-xpath'
 " vim-scripts repos
 Bundle 'taglist.vim'
 Bundle 'surround.vim'
@@ -171,6 +172,7 @@ filetype plugin on
 filetype plugin indent on
 
 set wrapscan
+set tw=0
 set t_Co=256
 set background=dark
 colorscheme wombat256mod
@@ -245,8 +247,6 @@ set wildmode=list:longest
 
 set ttyfast
 
-set showbreak=↪\ \
-
 " Save more commands in history
 set history=200
 
@@ -269,7 +269,7 @@ endfunction
 au FileType php map K :call OpenPhpFunction('<C-r><C-w>')<CR>
 
 " Configure PDV
-let g:pdv_template_dir = $HOME . "/.vim/bundle/pdv/templates_snip"
+let g:pdv_template_dir = $HOME . "/.vim/pdv_templates"
 nnoremap <buffer> <C-p> :call pdv#DocumentWithSnip()<CR>
 
 " Configure Ultisnips
