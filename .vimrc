@@ -2,9 +2,6 @@
 " No copyright, feel free to use this, as you like, as long as you keep some
 " credits.
 "
-" General VIM settings file. Optimized for coding PHP can be found in
-" ~/vim/ftdetect/php.vim.
-"
 " v1.1pl1
 "
 " Changelog:
