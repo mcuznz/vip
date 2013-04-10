@@ -90,11 +90,10 @@ Bundle 'tobyS/vmustache'
 Bundle 'jakobwesthoff/whitespacetrail'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'SirVer/ultisnips'
-Bundle 'actionshrimp/vim-xpath'
+Bundle 'altercation/vim-colors-solarized'
 " vim-scripts repos
 Bundle 'taglist.vim'
 Bundle 'surround.vim'
-"Bundle 'AutoTag'
 Bundle 'JSON.vim'
 Bundle 'phpvim'
 
