@@ -276,8 +276,8 @@ nnoremap <buffer> <C-p> :call pdv#DocumentWithSnip()<CR>
 let g:UltiSnipsExpandTrigger = "<leader><Tab>"
 let g:UltiSnipsListSnippets = "<leader><C-Tab>"
 " Set a custom snippets directory
-let g:UltiSnipsSnippetsDir = $HOME . "/.vim/bundle/ultisnips/UltiSnips"
-let g:UltiSnipsSnippetDirectories = ["UltiSnips", "snippets", "templates_snip"]
+"let g:UltiSnipsSnippetsDir = $HOME . "/.vim/bundle/ultisnips/UltiSnips"
+let g:UltiSnipsSnippetDirectories = ["snippets", "templates_snip"]
 
 set laststatus=2
 set encoding=UTF-8
