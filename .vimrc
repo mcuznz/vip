@@ -2,9 +2,6 @@
 " No copyright, feel free to use this, as you like, as long as you keep some
 " credits.
 "
-" General VIM settings file. Optimized for coding PHP can be found in
-" ~/vim/ftdetect/php.vim.
-"
 " v1.1pl1
 "
 " Changelog:
@@ -93,11 +90,9 @@ Bundle 'tobyS/vmustache'
 Bundle 'jakobwesthoff/whitespacetrail'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'SirVer/ultisnips'
-Bundle 'actionshrimp/vim-xpath'
 " vim-scripts repos
 Bundle 'taglist.vim'
 Bundle 'surround.vim'
-"Bundle 'AutoTag'
 Bundle 'JSON.vim'
 Bundle 'phpvim'
 
@@ -276,7 +271,7 @@ nnoremap <buffer> <C-p> :call pdv#DocumentWithSnip()<CR>
 let g:UltiSnipsExpandTrigger = "<leader><Tab>"
 let g:UltiSnipsListSnippets = "<leader><C-Tab>"
 " Set a custom snippets directory
-"let g:UltiSnipsSnippetsDir = $HOME . "/.vim/bundle/ultisnips/UltiSnips"
+let g:UltiSnipsSnippetsDir = $HOME . "/.vim/snippets"
 let g:UltiSnipsSnippetDirectories = ["snippets", "templates_snip"]
 
 set laststatus=2
