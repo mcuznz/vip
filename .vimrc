@@ -90,6 +90,8 @@ Bundle 'tobyS/vmustache'
 Bundle 'jakobwesthoff/whitespacetrail'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'SirVer/ultisnips'
+Bundle 'FredKSchott/CoVim'
+Bundle 'smerrill/vcl-vim-plugin'
 " vim-scripts repos
 Bundle 'taglist.vim'
 Bundle 'surround.vim'
@@ -149,9 +151,6 @@ runtime! ftplugin/man.vim
 " d indenting for .php files {{{
 " Disable phpsyntax base
 au BufRead,BufNewFile *.php		set indentexpr= | set smartindent
-" Set standard setting for PEAR coding standards
-set tabstop=4
-set shiftwidth=4
 " }}}
 
 " {{{ .phps files handlied like .php
@@ -178,6 +177,9 @@ autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+autocmd FileType php setlocal ts=4 sts=4 sw=4 expandtab
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+autocmd FileType yml setlocal ts=2 sts=2 sw=2 expandtab
 
 syntax on
 
@@ -218,6 +220,7 @@ let g:localvimrc_sandbox=0
 let g:localvimrc_ask=0
 
 let g:syntastic_enable_signs=1
+let g:syntastic_mode_map = { 'mode': 'active', 'active_filetypes': [], 'passive_filetypes': ['html'] }
 let g:syntastic_php_checkers=['php', 'phpcs', 'phpmd']
 
 " Set the hidden option to enable moving through args and buffers without
@@ -280,10 +283,5 @@ set encoding=UTF-8
 " Autoreload Vimrc every time it's saved.
 if has("autocmd")
 	autocmd! bufwritepost .vimrc source $MYVIMRC
-endif
-
-" Source local settings -- this should always be the LAST thing to do in here!
-if filereadable($HOME . "/.vimlocalrc")
-    source ~/.vimlocalrc
 endif
 " }}}
