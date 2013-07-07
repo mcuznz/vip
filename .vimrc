@@ -88,10 +88,7 @@ Bundle 'puppetlabs/puppet-syntax-vim'
 Bundle 'tobyS/pdv'
 Bundle 'tobyS/vmustache'
 Bundle 'jakobwesthoff/whitespacetrail'
-Bundle 'Lokaltog/vim-powerline'
 Bundle 'SirVer/ultisnips'
-Bundle 'FredKSchott/CoVim'
-Bundle 'smerrill/vcl-vim-plugin'
 " vim-scripts repos
 Bundle 'taglist.vim'
 Bundle 'surround.vim'
@@ -168,6 +165,7 @@ filetype plugin indent on
 set wrapscan
 set tw=0
 set t_Co=256
+syntax enable
 set background=dark
 colorscheme wombat256mod
 
@@ -180,8 +178,6 @@ autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType php setlocal ts=4 sts=4 sw=4 expandtab
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType yml setlocal ts=2 sts=2 sw=2 expandtab
-
-syntax on
 
 " Show line numbers by default
 set number
@@ -279,6 +275,10 @@ let g:UltiSnipsSnippetDirectories = ["snippets", "templates_snip"]
 
 set laststatus=2
 set encoding=UTF-8
+
+python from powerline.vim import setup as powerline_setup
+python powerline_setup()
+python del powerline_setup
 
 " Autoreload Vimrc every time it's saved.
 if has("autocmd")
