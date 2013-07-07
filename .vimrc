@@ -88,7 +88,6 @@ Bundle 'puppetlabs/puppet-syntax-vim'
 Bundle 'tobyS/pdv'
 Bundle 'tobyS/vmustache'
 Bundle 'jakobwesthoff/whitespacetrail'
-Bundle 'Lokaltog/vim-powerline'
 Bundle 'SirVer/ultisnips'
 " vim-scripts repos
 Bundle 'taglist.vim'
@@ -169,6 +168,7 @@ filetype plugin indent on
 set wrapscan
 set tw=0
 set t_Co=256
+syntax enable
 set background=dark
 colorscheme wombat256mod
 
@@ -178,8 +178,6 @@ autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-
-syntax on
 
 " Show line numbers by default
 set number
@@ -277,6 +275,10 @@ let g:UltiSnipsSnippetDirectories = ["snippets", "templates_snip"]
 set laststatus=2
 set encoding=UTF-8
 
+python from powerline.vim import setup as powerline_setup
+python powerline_setup()
+python del powerline_setup
+
 " Autoreload Vimrc every time it's saved.
 if has("autocmd")
 	autocmd! bufwritepost .vimrc source $MYVIMRC
@@ -286,4 +288,4 @@ endif
 if filereadable($HOME . "/.vimlocalrc")
     source ~/.vimlocalrc
 endif
-" }}}
+"o }}}
