@@ -89,6 +89,7 @@ Bundle 'tobyS/pdv'
 Bundle 'tobyS/vmustache'
 Bundle 'jakobwesthoff/whitespacetrail'
 Bundle 'SirVer/ultisnips'
+Bundle 'Lokaltog/powerline'
 " vim-scripts repos
 Bundle 'taglist.vim'
 Bundle 'surround.vim'
@@ -276,9 +277,7 @@ let g:UltiSnipsSnippetDirectories = ["snippets", "templates_snip"]
 set laststatus=2
 set encoding=UTF-8
 
-python from powerline.vim import setup as powerline_setup
-python powerline_setup()
-python del powerline_setup
+set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 
 " Autoreload Vimrc every time it's saved.
 if has("autocmd")
