@@ -2,50 +2,6 @@
 " No copyright, feel free to use this, as you like, as long as you keep some
 " credits.
 "
-" v1.1pl1
-"
-" Changelog:
-"
-" v1.1:
-" --------------
-"  - Added versioning and changelog
-"  - Added auto-completion using <TAB>
-"  - Added auto-reload command, when .vimrc changes
-"  - Deactivated <CTRL>-p => "pear package" in favor of
-"  - Mapped <CTRL>-p => "run through CLI"
-"  - Added fold markers for better overview
-"  - Added for mapping for wrapping visual selections into chars (like '/(/...)
-"  - Added scrolljump=5 and scrolloff=3 for better moving around with folds
-"  - Added mapping <CTRL>-h to search for the word under the cursor (should be
-"    a funcion) using phpm
-"  - Replaced map/imap with noremap/inoremap for clearer mappings
-"
-" v1.1pl1:
-" --------------
-"  - Fixed issue with <CTRL>-p for running PHP CLI (missing <cr>)
-"  - Remapped PHP compile check to ; (in command mode only)
-"
-" v1.2:
-" -----
-"  - Remapped PHP compile check to . (in command mode only)
-"  - Mapped ; to (add ; at the end of line, when missing - command mode only)
-"  - Added make facilities (:make, jump to error).
-"  - Added setting for not highlighting every search result (nohlsearch).
-"  - Added laststatus=2 (tipp by Derick)
-"  - Tip by Jakob (UG): Visual, <z>, <f> == foldmarkers for area
-"  - Moved PHP specific settings to .vim/ftdetect/php.vim
-"  - Activated sourcing of ftplugins
-"  - Added file type setting for .phps files
-"  - Created PDV (phpDocumentor for VIM) and added mapping (ATTENTION! BC
-"    break!)
-"  - Fixed bug with cover char mapping of "" in visual mode
-"  - Added possible alternatives for other coding standards
-"
-"  - Replace grepprg to remove SVN results
-"  - Add mapping for VIM7 spell checks to <F5>
-"  - Added autocommand to highlight the current line in insert mode.
-"  - Added skeleton file to be read for new PHP files.
-
 " Delete all auto commands (needed to auto source .vimrc after saving)
 autocmd!
 
@@ -71,10 +27,13 @@ call vundle#rc()
 " required!
 Bundle 'gmarik/vundle'
 
-" My Bundles here:
-"
 " original repos on github
+Bundle 'SirVer/ultisnips'
+Bundle 'tobyS/pdv'
+Bundle 'tobyS/vmustache'
+Bundle "tobyS/skeletons.vim"
 Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-surround'
 Bundle 'embear/vim-localvimrc'
 Bundle 'joonty/vdebug'
 Bundle 'joonty/vim-phpunitqf'
@@ -85,16 +44,10 @@ Bundle 'othree/html5-syntax.vim'
 Bundle 'beyondwords/vim-twig'
 Bundle 'stephpy/vim-php-cs-fixer'
 Bundle 'puppetlabs/puppet-syntax-vim'
-Bundle 'tobyS/pdv'
-Bundle 'tobyS/vmustache'
-Bundle 'jakobwesthoff/whitespacetrail'
-Bundle 'SirVer/ultisnips'
 Bundle 'Lokaltog/powerline'
-" vim-scripts repos
-Bundle 'taglist.vim'
-Bundle 'surround.vim'
-Bundle 'JSON.vim'
-Bundle 'phpvim'
+Bundle 'xolox/vim-misc'
+Bundle 'xolox/vim-easytags'
+Bundle 'StanAngeloff/php.vim'
 
 " Allow gf to work with PHP namespaced classes.
 set includeexpr=substitute(v:fname,'\\\','/','g')
@@ -132,7 +85,7 @@ autocmd BufNewFile *.txt 0r ~/.vim/skeleton.txt | normal GddOAOAOAOAOAOAO
 autocmd BufNewFile *.rst 0r ~/.vim/skeleton.txt | normal GddOAOAOAOAOAOAOAOAOA
 
 " JSON syntax highlighting
-au! BufRead,BufNewFile *.json set filetype=json
+au! BufRead,BufNewFile *.json set ft=javascript
 augroup json_autocmd
 	autocmd!
 	autocmd FileType json set autoindent
@@ -162,6 +115,7 @@ au BufRead,BufNewFile *.phps		set filetype=php
 " Use filetype plugins, e.g. for PHP
 filetype plugin on
 filetype plugin indent on
+runtime macros/matchit.vim
 
 set wrapscan
 set tw=0
@@ -215,6 +169,7 @@ inoremap <silent><C-Right> <C-o>:cal search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\
 
 let g:localvimrc_sandbox=0
 let g:localvimrc_ask=0
+let g:localvimrc_count=1
 
 let g:syntastic_enable_signs=1
 let g:syntastic_mode_map = { 'mode': 'active', 'active_filetypes': [], 'passive_filetypes': ['html'] }
@@ -283,4 +238,5 @@ set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 if has("autocmd")
 	autocmd! bufwritepost .vimrc source $MYVIMRC
 endif
+
 " }}}
