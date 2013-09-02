@@ -4,7 +4,6 @@
 
 let PHP_autoformatcomment = 1
 
-" {{{ Settings
 
 " Auto expand tabs to spaces
 setlocal expandtab
@@ -47,16 +46,22 @@ autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
 
-" }}} Settings
+" Allow gf to work with PHP namespaced classes.
+set includeexpr=substitute(v:fname,'\\\','/','g')
+set suffixesadd+=.php
 
-" {{{ Command mappings
+autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+autocmd FileType php setlocal ts=4 sts=4 sw=4 expandtab
 
-" Map <leader> ; to add ; to the end of the line, when missing
-noremap <leader>; :s/\([^;]\)$/\1;/<CR> :noh<CR>
-
-" DEPRECATED in favor of PDV documentation (see below!)
-" Map <CTRL>-P to run actual file with PHP CLI
-" noremap <C-P> :w!<CR>:!php5 %<CR>
+" PHP cs fixer config
+let g:php_cs_fixer_path = "/usr/local/bin/php-cs-fixer" " define the path to the php-cs-fixer.phar
+let g:php_cs_fixer_level = "all"                " which level ?
+let g:php_cs_fixer_config = "default"           " configuration
+let g:php_cs_fixer_php_path = "php"             " Path to PHP
+let g:php_cs_fixer_fixers_list = ""             " List of fixers
+let g:php_cs_fixer_enable_default_mapping = 1   " Enable the mapping by default (<leader>pcd)
+let g:php_cs_fixer_dry_run = 0                  " Call command with dry-run option
+let g:php_cs_fixer_verbose = 0                  " Return the output of command if 1, else an inline information.
 
 " Map <CTRL>-a to alignment function
 vnoremap <buffer> <C-a> :call PhpAlign()<CR>
@@ -64,43 +69,18 @@ vnoremap <buffer> <C-a> :call PhpAlign()<CR>
 " Map <CTRL>-a to (un-)comment function
 vnoremap <buffer> <C-c> :call PhpUnComment()<CR>
 
-" }}}
-
-" {{{ Automatic close char mapping
-
 " More common in PEAR coding standard
 " inoremap <buffer>  { {<CR>}<C-O>O
 " Maybe this way in other coding standards
 inoremap <buffer>  { {<CR>}<C-O>O
 
-"inoremap <buffer> [ []<LEFT>
+" Reads the skeleton php file
+" Note: The normal command afterwards deletes an ugly pending line and moves
+" the cursor to the middle of the file.
+autocmd BufNewFile *.php 0r ~/.vim/skeleton.php | normal Gdda
 
-" Standard mapping after PEAR coding standard
-" inoremap <buffer> ( (  )<LEFT><LEFT>
-"inoremap <buffer> ( ()<LEFT>
-
-" Maybe this way in other coding standards
-" inoremap ( ( )<LEFT><LEFT>
-
-"inoremap <buffer> " ""<LEFT>
-"inoremap <buffer> ' ''<LEFT>
-
-" }}} Automatic close char mapping
-
-
-" {{{ Wrap visual selections with chars
-
-:vnoremap <buffer> ( "zdi(<C-R>z)<ESC>
-:vnoremap <buffer> { "zdi{<C-R>z}<ESC>
-:vnoremap <buffer> [ "zdi[<C-R>z]<ESC>
-:vnoremap <buffer> ' "zdi'<C-R>z'<ESC>
-" Removed in favor of register addressing
-" :vnoremap " "zdi"<C-R>z"<ESC>
-
-" }}} Wrap visual selections with chars
-
-
-" {{{ Dictionary completion
+au BufRead,BufNewFile *.phps set filetype=php
+au BufRead,BufNewFile *.php set indentexpr= | set smartindent
 
 " The completion dictionary is provided by Rasmus:
 " http://lerdorf.com/funclist.txt
@@ -108,13 +88,6 @@ setlocal dictionary-=~/.vim/funclist.txt dictionary+=~/.vim/funclist.txt
 " Use the dictionary completion
 setlocal complete-=k complete+=k
 
-
-
-
-" }}} Dictionary completion
-
-
-" {{{ Autocompletion using the TAB key
 
 " This function determines, wether we are on the start of the line text (then tab indents) or
 " if we want to try autocompletion
@@ -129,10 +102,6 @@ endfunction
 
 " Remap the tab key to select action with InsertTabWrapper
 inoremap <buffer> <tab> <c-r>=InsertTabWrapper()<cr>
-
-" }}} Autocompletion using the TAB key
-
-" {{{ Alignment
 
 func! PhpAlign() range
     let l:paste = &g:paste
@@ -174,10 +143,8 @@ func! PhpAlign() range
     let &g:paste = l:paste
 endfunc
 
-" }}}
 
 
-" {{{ (Un-)comment
 
 func! PhpUnComment() range
     let l:paste = &g:paste
@@ -198,12 +165,29 @@ func! PhpUnComment() range
 
     let &g:paste = l:paste
 endfunc
-" }}}
 
-" {{{ Mappings for the function to auto insert use statements.
 imap <buffer> <Leader>u <C-O>:call PhpInsertUse()<CR>
 map <buffer> <Leader>u :call PhpInsertUse()<CR>
 
 imap <buffer> <Leader>e <C-O>:call PhpExpandClass()<CR>
 map <buffer> <Leader>e :call PhpExpandClass()<CR>
-" }}}
+
+" Search the php manual from within Vim
+function! OpenPhpFunction (keyword)
+  let proc_keyword = substitute(a:keyword , '_', '-', 'g')
+  exe 'split'
+  exe 'enew'
+  exe "set buftype=nofile"
+  exe 'silent r!lynx -dump -nolist http://ca.php.net/'.proc_keyword
+  exe 'norm gg'
+  exe 'call search ("' . a:keyword .'")'
+  exe 'norm dgg'
+  exe 'call search("User Contributed Notes")'
+  exe 'norm dGgg'
+endfunction
+au FileType php map K :call OpenPhpFunction('<C-r><C-w>')<CR>
+
+" Configure PDV
+let g:pdv_template_dir = $HOME . "/.vim/pdv_templates"
+nnoremap <buffer> <C-p> :call pdv#DocumentWithSnip()<CR>
+

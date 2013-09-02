@@ -242,9 +242,18 @@ public function $1Action($2)
 endsnippet
 
 snippet test "PHPUnit Test Method" !b
-public function test${1:name}(${2:$param})
+public function test${1:name}()
 {
-    ${VISUAL}${3:$this->markTestIncomplete();}
+    ${VISUAL}${2:$this->markTestIncomplete();}
+}
+$0
+endsnippet
+
+snippet tc "Try catch block" !b
+try {
+    ${2:// code}
+} catch (${1:Exception} $e) {
+    ${3:// error handling}
 }
 $0
 endsnippet

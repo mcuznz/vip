@@ -2,50 +2,6 @@
 " No copyright, feel free to use this, as you like, as long as you keep some
 " credits.
 "
-" v1.1pl1
-"
-" Changelog:
-"
-" v1.1:
-" --------------
-"  - Added versioning and changelog
-"  - Added auto-completion using <TAB>
-"  - Added auto-reload command, when .vimrc changes
-"  - Deactivated <CTRL>-p => "pear package" in favor of
-"  - Mapped <CTRL>-p => "run through CLI"
-"  - Added fold markers for better overview
-"  - Added for mapping for wrapping visual selections into chars (like '/(/...)
-"  - Added scrolljump=5 and scrolloff=3 for better moving around with folds
-"  - Added mapping <CTRL>-h to search for the word under the cursor (should be
-"    a funcion) using phpm
-"  - Replaced map/imap with noremap/inoremap for clearer mappings
-"
-" v1.1pl1:
-" --------------
-"  - Fixed issue with <CTRL>-p for running PHP CLI (missing <cr>)
-"  - Remapped PHP compile check to ; (in command mode only)
-"
-" v1.2:
-" -----
-"  - Remapped PHP compile check to . (in command mode only)
-"  - Mapped ; to (add ; at the end of line, when missing - command mode only)
-"  - Added make facilities (:make, jump to error).
-"  - Added setting for not highlighting every search result (nohlsearch).
-"  - Added laststatus=2 (tipp by Derick)
-"  - Tip by Jakob (UG): Visual, <z>, <f> == foldmarkers for area
-"  - Moved PHP specific settings to .vim/ftdetect/php.vim
-"  - Activated sourcing of ftplugins
-"  - Added file type setting for .phps files
-"  - Created PDV (phpDocumentor for VIM) and added mapping (ATTENTION! BC
-"    break!)
-"  - Fixed bug with cover char mapping of "" in visual mode
-"  - Added possible alternatives for other coding standards
-"
-"  - Replace grepprg to remove SVN results
-"  - Add mapping for VIM7 spell checks to <F5>
-"  - Added autocommand to highlight the current line in insert mode.
-"  - Added skeleton file to be read for new PHP files.
-
 " Delete all auto commands (needed to auto source .vimrc after saving)
 autocmd!
 
@@ -71,10 +27,13 @@ call vundle#rc()
 " required!
 Bundle 'gmarik/vundle'
 
-" My Bundles here:
-"
 " original repos on github
+Bundle 'SirVer/ultisnips'
+Bundle 'tobyS/pdv'
+Bundle 'tobyS/vmustache'
+Bundle "tobyS/skeletons.vim"
 Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-surround'
 Bundle 'embear/vim-localvimrc'
 Bundle 'joonty/vdebug'
 Bundle 'joonty/vim-phpunitqf'
@@ -85,30 +44,9 @@ Bundle 'othree/html5-syntax.vim'
 Bundle 'beyondwords/vim-twig'
 Bundle 'stephpy/vim-php-cs-fixer'
 Bundle 'puppetlabs/puppet-syntax-vim'
-Bundle 'tobyS/pdv'
-Bundle 'tobyS/vmustache'
-Bundle 'jakobwesthoff/whitespacetrail'
-Bundle 'SirVer/ultisnips'
 Bundle 'Lokaltog/powerline'
-" vim-scripts repos
-Bundle 'taglist.vim'
-Bundle 'surround.vim'
-Bundle 'JSON.vim'
-Bundle 'phpvim'
-
-" Allow gf to work with PHP namespaced classes.
-set includeexpr=substitute(v:fname,'\\\','/','g')
-set suffixesadd+=.php
-
-" PHP cs fixer config
-let g:php_cs_fixer_path = "/usr/local/bin/php-cs-fixer" " define the path to the php-cs-fixer.phar
-let g:php_cs_fixer_level = "all"                " which level ?
-let g:php_cs_fixer_config = "default"           " configuration
-let g:php_cs_fixer_php_path = "php"             " Path to PHP
-let g:php_cs_fixer_fixers_list = ""             " List of fixers
-let g:php_cs_fixer_enable_default_mapping = 1   " Enable the mapping by default (<leader>pcd)
-let g:php_cs_fixer_dry_run = 0                  " Call command with dry-run option
-let g:php_cs_fixer_verbose = 0                  " Return the output of command if 1, else an inline information.
+Bundle 'StanAngeloff/php.vim'
+Bundle 'groenewege/vim-less'
 
 " Set new grep command, which ignores SVN!
 " TODO: Add this to SVN
@@ -118,21 +56,20 @@ set grepprg=/usr/bin/vimgrep\ $*\ /dev/null
 autocmd InsertLeave * set nocursorline
 autocmd InsertEnter * set cursorline
 
+" Set the hidden option to enable moving through args and buffers without
+" saving them first
+set hidden
+
+" Show line numbers by default
+set number
+
 let g:Powerline_symbols = 'fancy'
 
 " Save files as root
 cnoremap w!! w !sudo tee % >/dev/null
-" Reads the skeleton php file
-" Note: The normal command afterwards deletes an ugly pending line and moves
-" the cursor to the middle of the file.
-autocmd BufNewFile *.php 0r ~/.vim/skeleton.php | normal Gdda
-
-" Reads the skeleton txt file
-autocmd BufNewFile *.txt 0r ~/.vim/skeleton.txt | normal GddOAOAOAOAOAOAOAOAOA
-autocmd BufNewFile *.rst 0r ~/.vim/skeleton.txt | normal GddOAOAOAOAOAOAOAOAOA
 
 " JSON syntax highlighting
-au! BufRead,BufNewFile *.json set filetype=json
+au! BufRead,BufNewFile *.json set ft=javascript
 augroup json_autocmd
 	autocmd!
 	autocmd FileType json set autoindent
@@ -146,23 +83,14 @@ augroup END
 " load the man plugin for a nice man viewer
 runtime! ftplugin/man.vim
 
-" d indenting for .php files {{{
-" Disable phpsyntax base
-au BufRead,BufNewFile *.php		set indentexpr= | set smartindent
-" }}}
-
-" {{{ .phps files handlied like .php
-
-au BufRead,BufNewFile *.phps		set filetype=php
-
-" }}}
-
-" {{{  Settings
-
 " Use filetype plugins, e.g. for PHP
 filetype plugin on
 filetype plugin indent on
 
+" Use built in matchit plugin
+runtime macros/matchit.vim
+
+" Colorscheme
 set wrapscan
 set tw=0
 set t_Co=256
@@ -175,15 +103,10 @@ autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
-autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-autocmd FileType php setlocal ts=4 sts=4 sw=4 expandtab
 autocmd FileType rb set expandtab ts=2 sts=2 sw=2 autoindent
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType yml setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType markdown set spell
-
-" Show line numbers by default
-set number
 
 " Enable folding by fold markers
 set foldmethod=marker
@@ -217,14 +140,11 @@ inoremap <silent><C-Right> <C-o>:cal search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\
 
 let g:localvimrc_sandbox=0
 let g:localvimrc_ask=0
+let g:localvimrc_count=1
 
 let g:syntastic_enable_signs=1
 let g:syntastic_mode_map = { 'mode': 'active', 'active_filetypes': [], 'passive_filetypes': ['html'] }
 let g:syntastic_php_checkers=['php', 'phpcs', 'phpmd']
-
-" Set the hidden option to enable moving through args and buffers without
-" saving them first
-set hidden
 
 " Allow the dot command to be used in visual mode
 :vnoremap . :norm.<CR>
@@ -247,28 +167,6 @@ set ttyfast
 " Save more commands in history
 set history=200
 
-" Write with sudo ":w!!"
-cnoremap w!! w !sudo tee % >/dev/null
-
-" Search the php manual from within Vim
-function! OpenPhpFunction (keyword)
-  let proc_keyword = substitute(a:keyword , '_', '-', 'g')
-  exe 'split'
-  exe 'enew'
-  exe "set buftype=nofile"
-  exe 'silent r!lynx -dump -nolist http://ca.php.net/'.proc_keyword
-  exe 'norm gg'
-  exe 'call search ("' . a:keyword .'")'
-  exe 'norm dgg'
-  exe 'call search("User Contributed Notes")'
-  exe 'norm dGgg'
-endfunction
-au FileType php map K :call OpenPhpFunction('<C-r><C-w>')<CR>
-
-" Configure PDV
-let g:pdv_template_dir = $HOME . "/.vim/pdv_templates"
-nnoremap <buffer> <C-p> :call pdv#DocumentWithSnip()<CR>
-
 " Configure Ultisnips
 let g:UltiSnipsExpandTrigger = "<leader><Tab>"
 let g:UltiSnipsListSnippets = "<leader><C-Tab>"
@@ -285,4 +183,3 @@ set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 if has("autocmd")
 	autocmd! bufwritepost .vimrc source $MYVIMRC
 endif
-" }}}
