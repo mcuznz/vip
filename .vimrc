@@ -177,8 +177,10 @@ autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType php setlocal ts=4 sts=4 sw=4 expandtab
+autocmd FileType rb set expandtab ts=2 sts=2 sw=2 autoindent
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType yml setlocal ts=2 sts=2 sw=2 expandtab
+autocmd FileType markdown set spell
 
 " Show line numbers by default
 set number
