@@ -45,23 +45,8 @@ Bundle 'beyondwords/vim-twig'
 Bundle 'stephpy/vim-php-cs-fixer'
 Bundle 'puppetlabs/puppet-syntax-vim'
 Bundle 'Lokaltog/powerline'
-Bundle 'xolox/vim-misc'
-Bundle 'xolox/vim-easytags'
 Bundle 'StanAngeloff/php.vim'
-
-" Allow gf to work with PHP namespaced classes.
-set includeexpr=substitute(v:fname,'\\\','/','g')
-set suffixesadd+=.php
-
-" PHP cs fixer config
-let g:php_cs_fixer_path = "/usr/local/bin/php-cs-fixer" " define the path to the php-cs-fixer.phar
-let g:php_cs_fixer_level = "all"                " which level ?
-let g:php_cs_fixer_config = "default"           " configuration
-let g:php_cs_fixer_php_path = "php"             " Path to PHP
-let g:php_cs_fixer_fixers_list = ""             " List of fixers
-let g:php_cs_fixer_enable_default_mapping = 1   " Enable the mapping by default (<leader>pcd)
-let g:php_cs_fixer_dry_run = 0                  " Call command with dry-run option
-let g:php_cs_fixer_verbose = 0                  " Return the output of command if 1, else an inline information.
+Bundle 'groenewege/vim-less'
 
 " Set new grep command, which ignores SVN!
 " TODO: Add this to SVN
@@ -71,18 +56,17 @@ set grepprg=/usr/bin/vimgrep\ $*\ /dev/null
 autocmd InsertLeave * set nocursorline
 autocmd InsertEnter * set cursorline
 
+" Set the hidden option to enable moving through args and buffers without
+" saving them first
+set hidden
+
+" Show line numbers by default
+set number
+
 let g:Powerline_symbols = 'fancy'
 
 " Save files as root
 cnoremap w!! w !sudo tee % >/dev/null
-" Reads the skeleton php file
-" Note: The normal command afterwards deletes an ugly pending line and moves
-" the cursor to the middle of the file.
-autocmd BufNewFile *.php 0r ~/.vim/skeleton.php | normal Gdda
-
-" Reads the skeleton txt file
-autocmd BufNewFile *.txt 0r ~/.vim/skeleton.txt | normal GddOAOAOAOAOAOAOAOAOA
-autocmd BufNewFile *.rst 0r ~/.vim/skeleton.txt | normal GddOAOAOAOAOAOAOAOAOA
 
 " JSON syntax highlighting
 au! BufRead,BufNewFile *.json set ft=javascript
@@ -99,24 +83,14 @@ augroup END
 " load the man plugin for a nice man viewer
 runtime! ftplugin/man.vim
 
-" d indenting for .php files {{{
-" Disable phpsyntax base
-au BufRead,BufNewFile *.php		set indentexpr= | set smartindent
-" }}}
-
-" {{{ .phps files handlied like .php
-
-au BufRead,BufNewFile *.phps		set filetype=php
-
-" }}}
-
-" {{{  Settings
-
 " Use filetype plugins, e.g. for PHP
 filetype plugin on
 filetype plugin indent on
+
+" Use built in matchit plugin
 runtime macros/matchit.vim
 
+" Colorscheme
 set wrapscan
 set tw=0
 set t_Co=256
@@ -129,13 +103,8 @@ autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
-autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-autocmd FileType php setlocal ts=4 sts=4 sw=4 expandtab
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType yml setlocal ts=2 sts=2 sw=2 expandtab
-
-" Show line numbers by default
-set number
 
 " Enable folding by fold markers
 set foldmethod=marker
@@ -175,10 +144,6 @@ let g:syntastic_enable_signs=1
 let g:syntastic_mode_map = { 'mode': 'active', 'active_filetypes': [], 'passive_filetypes': ['html'] }
 let g:syntastic_php_checkers=['php', 'phpcs', 'phpmd']
 
-" Set the hidden option to enable moving through args and buffers without
-" saving them first
-set hidden
-
 " Allow the dot command to be used in visual mode
 :vnoremap . :norm.<CR>
 
@@ -200,28 +165,6 @@ set ttyfast
 " Save more commands in history
 set history=200
 
-" Write with sudo ":w!!"
-cnoremap w!! w !sudo tee % >/dev/null
-
-" Search the php manual from within Vim
-function! OpenPhpFunction (keyword)
-  let proc_keyword = substitute(a:keyword , '_', '-', 'g')
-  exe 'split'
-  exe 'enew'
-  exe "set buftype=nofile"
-  exe 'silent r!lynx -dump -nolist http://ca.php.net/'.proc_keyword
-  exe 'norm gg'
-  exe 'call search ("' . a:keyword .'")'
-  exe 'norm dgg'
-  exe 'call search("User Contributed Notes")'
-  exe 'norm dGgg'
-endfunction
-au FileType php map K :call OpenPhpFunction('<C-r><C-w>')<CR>
-
-" Configure PDV
-let g:pdv_template_dir = $HOME . "/.vim/pdv_templates"
-nnoremap <buffer> <C-p> :call pdv#DocumentWithSnip()<CR>
-
 " Configure Ultisnips
 let g:UltiSnipsExpandTrigger = "<leader><Tab>"
 let g:UltiSnipsListSnippets = "<leader><C-Tab>"
@@ -238,5 +181,3 @@ set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 if has("autocmd")
 	autocmd! bufwritepost .vimrc source $MYVIMRC
 endif
-
-" }}}
