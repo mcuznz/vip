@@ -47,6 +47,7 @@ Bundle 'puppetlabs/puppet-syntax-vim'
 Bundle 'Lokaltog/powerline'
 Bundle 'StanAngeloff/php.vim'
 Bundle 'groenewege/vim-less'
+Bundle 'vim-ruby/vim-ruby'
 
 " Set new grep command, which ignores SVN!
 " TODO: Add this to SVN
