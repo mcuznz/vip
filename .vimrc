@@ -156,9 +156,6 @@ set pastetoggle=<ins>
 " Switch paste mode off whenever insert mode is left
 autocmd InsertLeave <buffer> set nopaste
 
-" Source .vimrc after saving .vimrc
-autocmd bufwritepost ~/.vimrc source $MYVIMRC
-
 " Show large "menu" with auto completion options
 set wildmenu
 set wildmode=list:longest
@@ -192,20 +189,6 @@ autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
 autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
-
-" This function determines, wether we are on the start of the line text (then tab indents) or
-" if we want to try autocompletion
-func! InsertTabWrapper()
-    let col = col('.') - 1
-    if !col || getline('.')[col - 1] !~ '\k'
-        return "\<tab>"
-    else
-        return "\<c-p>"
-    endif
-endfunction
-
-" Remap the tab key to select action with InsertTabWrapper
-inoremap <buffer> <tab> <c-r>=InsertTabWrapper()<cr>
 
 " Autoreload Vimrc every time it's saved.
 if has("autocmd")
