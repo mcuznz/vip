@@ -64,6 +64,12 @@ set hidden
 " Show line numbers by default
 set number
 
+" Switch syntax highlighting on, if it was not
+if !exists("g:syntax_on")
+    syntax
+endif
+
+" Powerline symbols.
 let g:Powerline_symbols = 'fancy'
 
 " Save files as root
@@ -104,6 +110,8 @@ autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
+autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+autocmd FileType php setlocal ts=4 sts=4 sw=4 expandtab
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType yml setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType markdown set spell
@@ -132,19 +140,12 @@ set backspace=start,eol,indent
 " Allow file inline modelines to provide settings
 set modeline
 
-" MovingThroughCamelCaseWords
-nnoremap <silent><C-Left>  :<C-u>cal search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\>\@!\)\<Bar>\%^','bW')<CR>
-nnoremap <silent><C-Right> :<C-u>cal search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\>\@!\)\<Bar>\%$','W')<CR>
-inoremap <silent><C-Left>  <C-o>:cal search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\>\@!\)\<Bar>\%^','bW')<CR>
-inoremap <silent><C-Right> <C-o>:cal search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\>\@!\)\<Bar>\%$','W')<CR>
-
 let g:localvimrc_sandbox=0
 let g:localvimrc_ask=0
 let g:localvimrc_count=1
 
 let g:syntastic_enable_signs=1
 let g:syntastic_mode_map = { 'mode': 'active', 'active_filetypes': [], 'passive_filetypes': ['html'] }
-let g:syntastic_php_checkers=['php', 'phpcs', 'phpmd']
 
 " Allow the dot command to be used in visual mode
 :vnoremap . :norm.<CR>
@@ -156,7 +157,7 @@ set pastetoggle=<ins>
 autocmd InsertLeave <buffer> set nopaste
 
 " Source .vimrc after saving .vimrc
-autocmd bufwritepost .vimrc source $MYVIMRC
+autocmd bufwritepost ~/.vimrc source $MYVIMRC
 
 " Show large "menu" with auto completion options
 set wildmenu
@@ -183,6 +184,28 @@ set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 " Note: The normal command afterwards deletes an ugly pending line and moves
 " the cursor to the middle of the file.
 autocmd BufNewFile *.php 0r ~/.vim/skeleton.php | normal Gdda
+
+" Highlight trailing whitespaces
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
+
+" This function determines, wether we are on the start of the line text (then tab indents) or
+" if we want to try autocompletion
+func! InsertTabWrapper()
+    let col = col('.') - 1
+    if !col || getline('.')[col - 1] !~ '\k'
+        return "\<tab>"
+    else
+        return "\<c-p>"
+    endif
+endfunction
+
+" Remap the tab key to select action with InsertTabWrapper
+inoremap <buffer> <tab> <c-r>=InsertTabWrapper()<cr>
 
 " Autoreload Vimrc every time it's saved.
 if has("autocmd")

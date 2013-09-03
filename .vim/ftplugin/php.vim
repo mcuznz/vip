@@ -1,9 +1,6 @@
 " .vim/ftplugin/php.vim by Tobias Schlitt <toby@php.net>.
 " No copyright, feel free to use this, as you like.
-
-
 let PHP_autoformatcomment = 1
-
 
 " Auto expand tabs to spaces
 setlocal expandtab
@@ -30,28 +27,16 @@ setlocal makeprg=php\ -l\ %
 " Use errorformat for parsing PHP error output
 setlocal errorformat=%m\ in\ %f\ on\ line\ %l
 
-" Switch syntax highlighting on, if it was not
-if !exists("g:syntax_on")
-    syntax
-endif
-
 " Use pman for manual pages
 setlocal keywordprg=pman
-
-" Highlight trailing whitespaces
-highlight ExtraWhitespace ctermbg=red guibg=red
-match ExtraWhitespace /\s\+$/
-autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-autocmd BufWinLeave * call clearmatches()
 
 " Allow gf to work with PHP namespaced classes.
 set includeexpr=substitute(v:fname,'\\\','/','g')
 set suffixesadd+=.php
 
-autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-autocmd FileType php setlocal ts=4 sts=4 sw=4 expandtab
+" Configure PDV
+let g:pdv_template_dir = $HOME . "/.vim/pdv_templates"
+nnoremap <buffer> <C-p> :call pdv#DocumentWithSnip()<CR>
 
 " PHP cs fixer config
 let g:php_cs_fixer_path = "/usr/local/bin/php-cs-fixer" " define the path to the php-cs-fixer.phar
@@ -63,17 +48,19 @@ let g:php_cs_fixer_enable_default_mapping = 1   " Enable the mapping by default 
 let g:php_cs_fixer_dry_run = 0                  " Call command with dry-run option
 let g:php_cs_fixer_verbose = 0                  " Return the output of command if 1, else an inline information.
 
+" Syntastic php options.
+let g:syntastic_php_checkers=['php', 'phpcs', 'phpmd']
+
 " Map <CTRL>-a to alignment function
 vnoremap <buffer> <C-a> :call PhpAlign()<CR>
 
-" Map <CTRL>-a to (un-)comment function
+" Map <CTRL>-c to (un-)comment function
 vnoremap <buffer> <C-c> :call PhpUnComment()<CR>
 
 " More common in PEAR coding standard
 " inoremap <buffer>  { {<CR>}<C-O>O
 " Maybe this way in other coding standards
 inoremap <buffer>  { {<CR>}<C-O>O
-
 
 au BufRead,BufNewFile *.phps set filetype=php
 au BufRead,BufNewFile *.php set indentexpr= | set smartindent
@@ -83,21 +70,6 @@ au BufRead,BufNewFile *.php set indentexpr= | set smartindent
 setlocal dictionary-=~/.vim/funclist.txt dictionary+=~/.vim/funclist.txt
 " Use the dictionary completion
 setlocal complete-=k complete+=k
-
-
-" This function determines, wether we are on the start of the line text (then tab indents) or
-" if we want to try autocompletion
-func! InsertTabWrapper()
-    let col = col('.') - 1
-    if !col || getline('.')[col - 1] !~ '\k'
-        return "\<tab>"
-    else
-        return "\<c-p>"
-    endif
-endfunction
-
-" Remap the tab key to select action with InsertTabWrapper
-inoremap <buffer> <tab> <c-r>=InsertTabWrapper()<cr>
 
 func! PhpAlign() range
     let l:paste = &g:paste
@@ -139,9 +111,6 @@ func! PhpAlign() range
     let &g:paste = l:paste
 endfunc
 
-
-
-
 func! PhpUnComment() range
     let l:paste = &g:paste
     let &g:paste = 0
@@ -182,8 +151,3 @@ function! OpenPhpFunction (keyword)
   exe 'norm dGgg'
 endfunction
 au FileType php map K :call OpenPhpFunction('<C-r><C-w>')<CR>
-
-" Configure PDV
-let g:pdv_template_dir = $HOME . "/.vim/pdv_templates"
-nnoremap <buffer> <C-p> :call pdv#DocumentWithSnip()<CR>
-
