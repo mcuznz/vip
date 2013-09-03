@@ -179,6 +179,11 @@ set encoding=UTF-8
 
 set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 
+" Reads the skeleton php file
+" Note: The normal command afterwards deletes an ugly pending line and moves
+" the cursor to the middle of the file.
+autocmd BufNewFile *.php 0r ~/.vim/skeleton.php | normal Gdda
+
 " Autoreload Vimrc every time it's saved.
 if has("autocmd")
 	autocmd! bufwritepost .vimrc source $MYVIMRC

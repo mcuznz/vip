@@ -74,10 +74,6 @@ vnoremap <buffer> <C-c> :call PhpUnComment()<CR>
 " Maybe this way in other coding standards
 inoremap <buffer>  { {<CR>}<C-O>O
 
-" Reads the skeleton php file
-" Note: The normal command afterwards deletes an ugly pending line and moves
-" the cursor to the middle of the file.
-autocmd BufNewFile *.php 0r ~/.vim/skeleton.php | normal Gdda
 
 au BufRead,BufNewFile *.phps set filetype=php
 au BufRead,BufNewFile *.php set indentexpr= | set smartindent
