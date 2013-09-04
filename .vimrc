@@ -165,6 +165,16 @@ set ttyfast
 " Save more commands in history
 set history=200
 
+" Auto expand tabs to spaces
+setlocal expandtab
+
+" Auto indent after a {
+setlocal autoindent
+setlocal smartindent
+
+" Use pman for manual pages
+setlocal keywordprg=pman
+
 " Configure Ultisnips
 let g:UltiSnipsExpandTrigger = "<leader><Tab>"
 let g:UltiSnipsListSnippets = "<leader><C-Tab>"

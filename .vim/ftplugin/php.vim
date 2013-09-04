@@ -2,18 +2,6 @@
 " No copyright, feel free to use this, as you like.
 let PHP_autoformatcomment = 1
 
-" Auto expand tabs to spaces
-setlocal expandtab
-
-" Auto indent after a {
-setlocal autoindent
-setlocal smartindent
-
-" Linewidth to 79, because of the formatoptions this is only valid for
-" comments
-setlocal textwidth=79
-setlocal formatoptions=qrocb
-
 " Do not wrap lines automatically
 setlocal nowrap
 
@@ -24,11 +12,13 @@ setlocal formatoptions=qroct
 " Use php syntax check when doing :make
 setlocal makeprg=php\ -l\ %
 
+" Linewidth to 79, because of the formatoptions this is only valid for
+" comments
+setlocal textwidth=79
+setlocal formatoptions=qrocb
+
 " Use errorformat for parsing PHP error output
 setlocal errorformat=%m\ in\ %f\ on\ line\ %l
-
-" Use pman for manual pages
-setlocal keywordprg=pman
 
 " Allow gf to work with PHP namespaced classes.
 set includeexpr=substitute(v:fname,'\\\','/','g')
