@@ -41,7 +41,7 @@ Bundle 'scrooloose/syntastic'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'arnaud-lb/vim-php-namespace'
 Bundle 'othree/html5-syntax.vim'
-Bundle 'beyondwords/vim-twig'
+Bundle 'JCook21/vim-twig'
 Bundle 'stephpy/vim-php-cs-fixer'
 Bundle 'puppetlabs/puppet-syntax-vim'
 Bundle 'Lokaltog/powerline'
@@ -112,6 +112,7 @@ autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType php setlocal ts=4 sts=4 sw=4 expandtab
+autocmd FileType twig setlocal ts=4 sts=4 sw=4 expandtab
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType yml setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType markdown set spell
